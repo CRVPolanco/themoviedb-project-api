@@ -1,0 +1,16 @@
+{
+  "users": [
+    {
+      "username": "CRVPolanco",
+      "email": "carlos@polanco.com",
+      "password": "prueba123",
+      "full_name": "Carlos Vera"
+    },
+    {
+      "username": "something",
+      "email": "something@some.com",
+      "password": "try",
+      "full_name": "Some Name"
+    }
+  ]
+}
