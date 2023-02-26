@@ -46,21 +46,25 @@ const Navbar = ({ children }) => {
             }
             { isNotMobile &&
               <Stack direction="row" gap={3}>
-                {navroutes.map(r => (
-                  <NavLink
-                  to={r.path}
-                  style={{ textDecoration: 'none' }}
-                  >
-                    <Typography
-                      color="white"
-                      variant="h6"
-                      sx={{ display: 'flex', alignItems: 'center', gap: '8px' }}
-                    >
-                      {r.icon}
-                      {r.name}
-                    </Typography>
-                  </NavLink>
-                ))}
+                <InputSearcher searchValue={searchValue} />
+                {navroutes.map(r => {
+                  if(!r.requireAccount)
+                    return (
+                      <NavLink
+                      to={r.path}
+                      style={{ textDecoration: 'none' }}
+                      >
+                        <Typography
+                          color="white"
+                          variant="h6"
+                          sx={{ display: 'flex', alignItems: 'center', gap: '8px' }}
+                        >
+                          {r.icon}
+                          {r.name}
+                        </Typography>
+                      </NavLink>
+                    )
+                  })}
               </Stack>
             }
           </Toolbar>

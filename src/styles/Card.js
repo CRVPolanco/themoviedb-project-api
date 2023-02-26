@@ -1,10 +1,10 @@
 import styled from 'styled-components';
 
 export const Img = styled.img`
+  width: 100%;
+  height: 250px;
   border-radius: 4px 4px 8px 8px;
   object-fit: cover;
-  width: 225px;
-  height: 250px;
   cursor: pointer;
 `
 export const CardSliderContainer = styled.section`
