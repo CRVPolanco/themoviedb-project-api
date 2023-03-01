@@ -6,31 +6,38 @@ import LogoutIcon from '@mui/icons-material/Logout';
 
 export const navroutes = [
   {
-    name: 'Favorites',
+    name: '',
     path: '/favorites',
-    icon: <FavoriteIcon />,
-    public: true,
+    icon: <FavoriteIcon/>,
+    public: false,
     requireAccount: true,
   },
   {
-    name: 'Account',
+    name: '',
     path: '/account',
-    icon: <AccountCircleIcon />,
+    icon: <AccountCircleIcon/>,
     public: false,
     requireAccount: true,
   },
   {
-    name: 'Popular',
+    name: '',
     path: '/popular',
-    icon: <TrendingUpIcon />,
-    public: false,
+    icon: <TrendingUpIcon sx={{ width: '28px', height: '28px' }}/>,
+    public: true,
     requireAccount: false,
   },
   {
-    name: 'Login',
+    name: '',
     path: '/login',
-    icon: <LoginIcon />,
+    icon: <LoginIcon/>,
     public: true,
     requireAccount: false,
+  },
+  {
+    name: '',
+    path: '/',
+    icon: <LogoutIcon/>,
+    public: false,
+    requireAccount: true,
   },
 ]

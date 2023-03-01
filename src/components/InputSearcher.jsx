@@ -6,8 +6,15 @@ import SearchIcon from '@mui/icons-material/Search';
 const InputSearcher = ({ searchValue }) => {
   return(
     <InputContainer>
-      <Stack>
-        <SearchIcon sx={{ position: 'absolute', top: '8px', left: '8px' }}/>
+      <Stack width="100%">
+        <SearchIcon sx={{
+          width: '24px',
+          height: '24px',
+          color: '#fff',
+          position: 'absolute',
+          top: '6px',
+          right: '12px'
+        }}/>
         <Input type="text" onChange={e => searchValue(e.target.value)} />
       </Stack>
     </InputContainer>

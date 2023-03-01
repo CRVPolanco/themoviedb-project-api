@@ -1,39 +1,38 @@
-import { createContext } from 'react';
-import { users } from '../mocks/users.json';
+import { useState, createContext } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { fetchUser } from '../services/fetchUser';
 
 const UserContext = createContext();
 
 const UserContextProvider = ({ children }) => {
 
-  const [actualUser, setActualUser] = useState({
-    username: '',
-    email: '',
-    password: '',
-    full_name: '',
-  });
+  const redirection = useNavigate();
 
-  const LOGIN = ({ data }) => {
+  const [loading, setLoading] = useState(false);
+  const [loginError, setLoginError] = useState('');
 
-    setLoading(true)
-    setTimeout(() => {
+  const [actualUser, setActualUser] = useState(null);
 
-      const allUsers = [...users];
-      const index = allUsers.findIndex(u => u.email === data.email);
+  const LOGIN = async (data) => {
 
-      if(!index){
-        setLoading(false);
-        throw new Error("User doesn't exists");
-      }
+    setLoading(true);
+    const getUser = await fetchUser(data.email);
 
-      if(data.password !== index.password){
-        setLoading(false);
-        throw new Error("Incorrect password");
-      }
+    console.log(getUser);
 
-      setActualUser({ ...actualUser, ...index });
+    if(!getUser){
       setLoading(false);
-    }, 2000)
+      return "User doesn't exists";
+    }
 
+    if(getUser.password !== data.password){
+      setLoading(false);
+      return "Incorrect password";
+    }
+
+    setActualUser({ ...getUser });
+    setLoading(false);
+    redirection('/');
   };
 
   const REGISTER = ({ data }) => {
@@ -57,7 +56,7 @@ const UserContextProvider = ({ children }) => {
 
   };
 
-  const LOGOUT = () => setActualUser({ username: '', password: '', email: '', full_name: '' });
+  const LOGOUT = () => setActualUser(null);
 
   return (
     <UserContext.Provider value={{

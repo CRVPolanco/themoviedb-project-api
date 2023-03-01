@@ -13,16 +13,16 @@ const Card = ({ data }) => {
   return(
     <Paper elevation={4} sx={{
       position: 'relative',
-      width: '225px',
-      height: '350px',
+      width: '155px',
+      height: '325px',
       color: '#FFF',
       backgroundColor: '#1a1a1a'
     }}
     >
       <CardMedia sx={{
         position: 'relative',
-        width: '225px',
-        height: '350px',
+        width: '155px',
+        height: '325px',
         overflow: 'hidden'
       }} mb={4}>
         <FavoriteIcon sx={{
@@ -38,8 +38,8 @@ const Card = ({ data }) => {
           alt="Card Image"
           ref={ref}
         />
-        <Typography sx={{ ml: 1.5, height: '21px', overflow: 'hidden', mb: 0.5 }} fontWeight="bold">{data.title}</Typography>
-        <Typography sx={{ ml: 1.5 }}>{data.overview}</Typography>
+        <Typography sx={{ mx: 1.5, height: '21px', overflow: 'hidden', mb: 0.5 }} fontWeight="bold">{data.title}</Typography>
+        <Typography sx={{ mx: 1.5 }}>{data.overview}</Typography>
       </CardMedia>
     </Paper>
   )

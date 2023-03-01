@@ -3,16 +3,16 @@ import { Stack, Typography } from '@mui/material';
 import { CategoriesSection, CategoriesContainer } from '../styles/CategoriesSection';
 
 
-const Categories = ({ title }) => {
+const Categories = ({ title, data }) => {
 
   return(
     <CategoriesSection>
-      <Typography variant="h6">{title}</Typography>
+      <Typography variant="h5" fontWeight="bold" mb={2}>{title}</Typography>
       <CategoriesContainer>
-        {[1,2,3,4,5,6,7,8,9,10].map(c => (
-          <Stack>
+        {data.map(c => (
+          <Stack key={c.id}>
             <span></span>
-            <Typography variant="h7">Hola</Typography>
+            <Typography variant="h7" my={1}>{c.name}</Typography>
           </Stack>
         ))}
       </CategoriesContainer>
