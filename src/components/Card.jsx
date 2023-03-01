@@ -11,7 +11,16 @@ const Card = ({ data }) => {
 
   const [ref, { entry, wasEverVisible }] = useTrackVisibility();
 
-  const { toggleFavorites } = React.useContext(UserContext);
+  const { actualUser, toggleFavorites } = React.useContext(UserContext);
+
+  const isFavorite = () => {
+    if(!actualUser)
+      return false;
+
+    const isFav = actualUser.movies_favorites.some(m => m.id === data.id);
+    return isFav;
+  }
+
 
   return(
     <Paper elevation={4} sx={{
@@ -31,6 +40,7 @@ const Card = ({ data }) => {
         <FavoriteIcon
           sx={{
             position: 'absolute',
+            color: `${isFavorite() ? 'red' : '#fff'}`,
             width: '40px',
             height: '40px',
             top: '8px',

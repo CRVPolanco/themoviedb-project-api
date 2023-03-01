@@ -85,7 +85,7 @@ const Register = () => {
                 required
                 sx={{ margin: '0 0 12px 0', width: '100%' }}
                 InputProps={{
-                  startAdornment:
+                  endAdornment:
                   <InputAdornment position="start">
                       <PhoneIcon sx={{ color: '#FFF' }} />
                   </InputAdornment>,
@@ -105,7 +105,7 @@ const Register = () => {
                 required
                 sx={{ margin: '0 0 12px 0', width: '100%' }}
                 InputProps={{
-                  startAdornment:
+                  endAdornment:
                   <InputAdornment position="start">
                       <EmailIcon sx={{ color: '#FFF' }} />
                   </InputAdornment>,
@@ -128,8 +128,7 @@ const Register = () => {
                 InputProps={{
                   endAdornment:
                   <InputAdornment
-                    position="end"
-
+                    position="start"
                     >
                       <IconButton
                         aria-label="toggle password visibility"

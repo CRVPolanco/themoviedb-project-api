@@ -54,7 +54,7 @@ const Login = () => {
                 onChange={handleEmail}
                 sx={{ margin: '0 0 12px 0', width: '100%' }}
                 InputProps={{
-                  startAdornment:
+                  endAdornment:
                   <InputAdornment position="start">
                       <EmailIcon sx={{ color: '#FFF' }} />
                   </InputAdornment>,
@@ -77,12 +77,13 @@ const Login = () => {
                 InputProps={{
                   endAdornment:
                   <InputAdornment
-                    position="end"
+                    position="start"
 
                     >
                       <IconButton
                         aria-label="toggle password visibility"
                         edge="end"
+                        sx={{ mr: -0.75 }}
                         onClick={toggleVisibility}>
                         {showPass ? <VisibilityOffIcon
                           sx={{ color: '#FFF' }} /> :

@@ -53,7 +53,7 @@ const UserContextProvider = ({ children }) => {
 
     if(userData.message === 'created successfully'){
       setLoading(false);
-      setActualUser({ ...userData });
+      setActualUser({ ...userData.user });
       return redirection('/');
     }
 
@@ -68,21 +68,17 @@ const UserContextProvider = ({ children }) => {
     if(!actualUser)
       return redirection('/login');
 
-    const doesExists = actualUser.movies_favorites.findIndex(m => m.id === movie.id);
+    const doesExists = actualUser.movies_favorites.some(m => m.id === movie.id);
 
-    if(doesExists === -1){
-      const rta = await addFavorites(actualUser.id, movie);
-      console.log(rta);
+    if(!doesExists){
 
+      await addFavorites(actualUser.id, movie);
       setActualUser({ ...actualUser, movies_favorites: [...actualUser.movies_favorites, { ...movie }] });
+      return;
     }
 
-    if(doesExists > 0){
-      const rta = await removeFavorites(actualUser.id, movie);
-      console.log(rta);
-
-      setActualUser({ ...actualUser, movies_favorites: [...actualUser.movies_favorites.filter(m => m.id === movie.id)] });
-    }
+    await removeFavorites(actualUser.id, movie);
+    setActualUser({ ...actualUser, movies_favorites: [...actualUser.movies_favorites.filter(m => m.id !== movie.id)] });
 
     return;
   }
