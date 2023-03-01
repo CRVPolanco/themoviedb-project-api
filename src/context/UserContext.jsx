@@ -1,6 +1,7 @@
 import { useState, createContext } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { fetchUser } from '../services/fetchUser';
+import { addFavorites, removeFavorites } from '../services/addFavorites';
+import { fetchUser, registerUser } from '../services/fetchUser';
 
 const UserContext = createContext();
 
@@ -9,7 +10,7 @@ const UserContextProvider = ({ children }) => {
   const redirection = useNavigate();
 
   const [loading, setLoading] = useState(false);
-  const [loginError, setLoginError] = useState('');
+  const [error, setError] = useState('');
 
   const [actualUser, setActualUser] = useState(null);
 
@@ -18,49 +19,82 @@ const UserContextProvider = ({ children }) => {
     setLoading(true);
     const getUser = await fetchUser(data.email);
 
-    console.log(getUser);
+    console.log();
 
-    if(!getUser){
+    if(getUser.data === 'user does not exists'){
       setLoading(false);
-      return "User doesn't exists";
+      setError("User does not exists");
+      return;
     }
 
-    if(getUser.password !== data.password){
+    if(getUser && (getUser.data.password !== data.password)){
       setLoading(false);
-      return "Incorrect password";
+      setError('Incorrect password');
+      return;
     }
 
-    setActualUser({ ...getUser });
+    setActualUser({ ...getUser.data });
     setLoading(false);
     redirection('/');
   };
 
-  const REGISTER = ({ data }) => {
+  const REGISTER = async (data) => {
 
     setLoading(true);
-    setTimeout(() => {
-      const allUsers = [...users];
-      const index = allUsers.findIndex(u => u.email === data.email);
 
-      if(!!index){
-        setLoading(false);
-        throw new Error("User exists");
-      }
+    const getUser = await fetchUser(data.email);
 
-      if(!index){
-        setUser({ ...data });
-        setLoading(false);
-      }
+    if(getUser.data !== 'user does not exists'){
+      setLoading(false);
+      return setError("User already exists, create another");
+    }
 
-    }, 2000);
+    const userData = await registerUser(data);
 
-  };
+    if(userData.message === 'created successfully'){
+      setLoading(false);
+      setActualUser({ ...userData });
+      return redirection('/');
+    }
+
+    setLoading(false);
+    setActualUser({ ...getUser });
+    redirection('/');
+    return;
+
+  }
+
+  const toggleFavorites = async (movie) => {
+    if(!actualUser)
+      return redirection('/login');
+
+    const doesExists = actualUser.movies_favorites.findIndex(m => m.id === movie.id);
+
+    if(doesExists === -1){
+      const rta = await addFavorites(actualUser.id, movie);
+      console.log(rta);
+
+      setActualUser({ ...actualUser, movies_favorites: [...actualUser.movies_favorites, { ...movie }] });
+    }
+
+    if(doesExists > 0){
+      const rta = await removeFavorites(actualUser.id, movie);
+      console.log(rta);
+
+      setActualUser({ ...actualUser, movies_favorites: [...actualUser.movies_favorites.filter(m => m.id === movie.id)] });
+    }
+
+    return;
+  }
 
   const LOGOUT = () => setActualUser(null);
 
   return (
     <UserContext.Provider value={{
       actualUser,
+      error,
+      loading,
+      toggleFavorites,
       LOGIN,
       REGISTER,
       LOGOUT,

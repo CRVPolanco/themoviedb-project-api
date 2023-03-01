@@ -1,7 +1,13 @@
 import axios from 'axios';
+import { LOCAL_DB } from './api';
 
-const api = "http://192.168.1.108:3005/api/v1/users";
-
-export const fetchUser = async (email) => axios(`${api}/${email}`)
-  .then(r => r.data)
+export const fetchUser = async (email) => await axios(`${LOCAL_DB}/${email}`)
+  .then(r => r)
   .catch(e => e);
+
+export const registerUser = async (data) => {
+  const rta = await axios.post(`${LOCAL_DB}`, data);
+  const response = rta.data;
+
+  return response
+}

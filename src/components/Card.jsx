@@ -1,5 +1,6 @@
 import React from 'react';
 import { useTrackVisibility } from 'react-intersection-observer-hook';
+import { UserContext } from '../context/UserContext';
 import { CardMedia, Paper, Typography } from '@mui/material';
 import { Img } from '../styles/Card';
 import FavoriteIcon from '@mui/icons-material/Favorite';
@@ -9,6 +10,8 @@ const poster = "https://image.tmdb.org/t/p/w500"
 const Card = ({ data }) => {
 
   const [ref, { entry, wasEverVisible }] = useTrackVisibility();
+
+  const { toggleFavorites } = React.useContext(UserContext);
 
   return(
     <Paper elevation={4} sx={{
@@ -25,15 +28,18 @@ const Card = ({ data }) => {
         height: '325px',
         overflow: 'hidden'
       }} mb={4}>
-        <FavoriteIcon sx={{
-          position: 'absolute',
-          width: '40px',
-          height: '40px',
-          top: '8px',
-          right: '8px',
-          cursor: 'pointer',
-          zIndex: '1',
-        }}/>
+        <FavoriteIcon
+          sx={{
+            position: 'absolute',
+            width: '40px',
+            height: '40px',
+            top: '8px',
+            right: '8px',
+            cursor: 'pointer',
+            zIndex: '1',
+          }}
+          onClick={() => toggleFavorites(data)}
+        />
         <Img src={!!wasEverVisible ? `${poster}${data.poster_path}`: 'https://fakeimg.pl/225x250/' }
           alt="Card Image"
           ref={ref}

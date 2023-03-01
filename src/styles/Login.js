@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const LoginSection = styled.section`
-  width: 320px;
+  width: 280px;
   max-width: 600px;
   display: flex;
   justify-content: center;

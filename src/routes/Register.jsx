@@ -8,26 +8,30 @@ import { theme } from '../styles/Pallete';
 import { UserContext } from '../context/UserContext';
 import EmailIcon from '@mui/icons-material/Email';
 import PasswordIcon from '@mui/icons-material/Password';
+import PhoneIcon from '@mui/icons-material/Phone';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 
-const Login = () => {
+const Register = () => {
 
-  const { error, LOGIN } = React.useContext(UserContext);
+  const { actualUser, REGISTER } = React.useContext(UserContext);
 
-  const [userInfo, setUserInfo] = React.useState({ email: '', password: '' });
+  const [data, setData] = React.useState({ name: '', username: '', phone: '', email: '', password: '' });
   const [showPass, setShowPass] = React.useState(false);
 
   const toggleVisibility = () => setShowPass(!showPass);
-  const login = () => LOGIN({ email: userInfo.email, password: userInfo.password });
 
-  const handleEmail = (e) => setUserInfo({ ...userInfo, email: e.target.value });
-  const handlePassword = (e) => setUserInfo({ ...userInfo, password: e.target.value });
+  const handleName = (e) => setData({...data, name: e.target.value});
+  const handleUsername = (e) => setData({...data, username: e.target.value});
+  const handlePhone = (e) => setData({...data, phone: e.target.value});
+  const handleEmail = (e) => setData({ ...data, email: e.target.value });
+  const handlePassword = (e) => setData({ ...data, password: e.target.value });
 
+  const handleSignUp = () => REGISTER(data);
 
   return(
     <Centerer>
-      <LoginSection style={{ marginBottom: '75px' }}>
+      <LoginSection>
         <Paper elevation={4} sx={{
           width: '100%',
           padding: '8px 16px',
@@ -35,23 +39,70 @@ const Login = () => {
           color: '#FFF'
         }}
         >
-          <Typography variant="h4" fontWeight="bold" my={2}>Login</Typography>
-          {!!error && <Typography variant="h6" color="allWhite" sx={{
-            backgroundColor: 'red',
-            borderRadius: '6px',
-            padding: '4px 8px',
-            margin: '4px 0 12px 0'  }}>{error}</Typography>}
+          <Typography variant="h4" fontWeight="bold" my={2}>Sign up</Typography>
           <Form>
             <ThemeProvider theme={theme}>
+              <TextField
+                id="standard-basic-input-full-name"
+                label="Full name"
+                variant="standard"
+                color='allWhite'
+                value={data.name}
+                onChange={handleName}
+                focused
+                required
+                sx={{ margin: '0 0 12px 0', width: '100%' }}
+                InputProps={{
+                  sx: {
+                    color: '#fff',
+                  }
+                }}
+                />
+              <TextField
+                id="standard-basic-input-username"
+                label="Username"
+                variant="standard"
+                color='allWhite'
+                value={data.username}
+                onChange={handleUsername}
+                focused
+                required
+                sx={{ margin: '0 0 12px 0', width: '100%' }}
+                InputProps={{
+                  sx: {
+                    color: '#fff',
+                  }
+                }}
+                />
+              <TextField
+                id="standard-basic-input-phone"
+                label="Phone"
+                variant="standard"
+                color='allWhite'
+                value={data.phone}
+                onChange={handlePhone}
+                focused
+                required
+                sx={{ margin: '0 0 12px 0', width: '100%' }}
+                InputProps={{
+                  startAdornment:
+                  <InputAdornment position="start">
+                      <PhoneIcon sx={{ color: '#FFF' }} />
+                  </InputAdornment>,
+                  sx: {
+                    color: '#fff'
+                  }
+                }}
+              />
               <TextField
                 id="standard-basic-input-email"
                 label="Email"
                 variant="standard"
                 color='allWhite'
+                value={data.email}
+                onChange={handleEmail}
                 focused
                 required
-                value={userInfo.email}
-                onChange={handleEmail}
                 sx={{ margin: '0 0 12px 0', width: '100%' }}
                 InputProps={{
                   startAdornment:
@@ -62,17 +113,17 @@ const Login = () => {
                     color: '#fff'
                   }
                 }}
-                />
-                <TextField
+              />
+              <TextField
                 id="standard-basic-input-password"
                 label="Password"
                 variant="standard"
                 type={showPass ? 'text' : 'password'}
                 color='allWhite'
+                value={data.password}
+                onChange={handlePassword}
                 focused
                 required
-                value={userInfo.password}
-                onChange={handlePassword}
                 sx={{ margin: '0 0 12px 0', width: '100%' }}
                 InputProps={{
                   endAdornment:
@@ -95,7 +146,7 @@ const Login = () => {
                       color: '#fff'
                     },
                 }}
-                />
+              />
               <Stack direction="column">
                 <Button
                   color="textBlack"
@@ -105,26 +156,17 @@ const Login = () => {
                     fontWeight: '700',
                     margin: '12px 0'
                   }}
-                  onClick={login}
-                >Log in</Button>
+                  onClick={handleSignUp}
+                >Sign up</Button>
                 <NavLink
-                  to='/recovery'
+                  to='/login'
                   style={{
                     color: '#fff',
                     textAlign: 'center',
                     textDecoration: 'none',
                     margin: '8px 0 12px 0'
                   }}
-                >Forgot your password</NavLink>
-                <NavLink
-                  to='/signup'
-                  style={{
-                    color: '#fff',
-                    textAlign: 'center',
-                    textDecoration: 'none',
-                    margin: '8px 0 12px 0'
-                  }}
-                >No account already? Sign Up</NavLink>
+                >Already have account? Sign in</NavLink>
               </Stack>
             </ThemeProvider>
           </Form>
@@ -134,4 +176,4 @@ const Login = () => {
   )
 };
 
-export default Login;
+export default Register;
