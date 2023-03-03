@@ -3,7 +3,7 @@ import React from 'react';
 import { InputContainer, Input } from '../styles/InputContainer';
 import SearchIcon from '@mui/icons-material/Search';
 
-const InputSearcher = ({ searchValue }) => {
+const InputSearcher = ({ searchValue, setSearchValue }) => {
   return(
     <InputContainer>
       <Stack width="100%">
@@ -15,7 +15,7 @@ const InputSearcher = ({ searchValue }) => {
           top: '6px',
           right: '12px'
         }}/>
-        <Input type="text" onChange={e => searchValue(e.target.value)} />
+        <Input type="text" onChange={e => setSearchValue(e.target.value)} value={searchValue}/>
       </Stack>
     </InputContainer>
   )

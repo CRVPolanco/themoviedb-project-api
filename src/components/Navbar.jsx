@@ -41,7 +41,7 @@ const Navbar = ({ children }) => {
               KajloMovies
             </Typography>
             <Stack direction="row" gap={isMiniMobile ? 1.5 : 3} alignItems="center">
-              {isNotMobile && <InputSearcher /> }
+              {isNotMobile && <InputSearcher searchValue={searchValue} setSearchValue={setSearchValue} /> }
               {navroutes.map(r => {
                 if(!actualUser && r.requireAccount) return null
                 if(!!actualUser && r.public) return null
@@ -82,7 +82,7 @@ const Navbar = ({ children }) => {
         </AppBar>
       </Box>
       {!!toggleSearcher &&
-        <InputSearcher searchValue={searchValue} />
+        <InputSearcher searchValue={searchValue} setSearchValue={setSearchValue} />
       }
       {children}
     </>

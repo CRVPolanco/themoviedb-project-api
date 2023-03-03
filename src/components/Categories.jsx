@@ -1,6 +1,7 @@
 import React from 'react';
 import { Stack, Typography } from '@mui/material';
 import { CategoriesSection, CategoriesContainer } from '../styles/CategoriesSection';
+import { NavLink } from 'react-router-dom';
 
 
 const Categories = ({ title, data }) => {
@@ -11,8 +12,10 @@ const Categories = ({ title, data }) => {
       <CategoriesContainer>
         {data.map(c => (
           <Stack key={c.id}>
-            <span></span>
-            <Typography variant="h7" my={1}>{c.name}</Typography>
+            <NavLink to={`/movie/category/${c.name.toLowerCase()}`} style={{ margin: '8px 0', textDecoration: 'none', color: '#fff' }}>
+              <span></span>
+              {c.name}
+            </NavLink>
           </Stack>
         ))}
       </CategoriesContainer>
