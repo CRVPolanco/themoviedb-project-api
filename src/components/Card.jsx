@@ -4,6 +4,7 @@ import { UserContext } from '../context/UserContext';
 import { CardMedia, Paper, Typography } from '@mui/material';
 import { Img } from '../styles/Card';
 import FavoriteIcon from '@mui/icons-material/Favorite';
+import { useNavigate } from 'react-router-dom';
 
 const poster = "https://image.tmdb.org/t/p/w500"
 
@@ -20,6 +21,8 @@ const Card = ({ data }) => {
     const isFav = actualUser.movies_favorites.some(m => m.id === data.id);
     return isFav;
   }
+
+  const clickRedirector = useNavigate();
 
 
   return(
@@ -53,6 +56,7 @@ const Card = ({ data }) => {
         <Img src={!!wasEverVisible ? `${poster}${data.poster_path}`: 'https://fakeimg.pl/225x250/' }
           alt="Card Image"
           ref={ref}
+          onClick={() => clickRedirector(`/movie/details/${data.id}`)}
         />
         <Typography sx={{ mx: 1.5, height: '21px', overflow: 'hidden', mb: 0.5 }} fontWeight="bold">{data.title}</Typography>
         <Typography sx={{ mx: 1.5 }}>{data.overview}</Typography>

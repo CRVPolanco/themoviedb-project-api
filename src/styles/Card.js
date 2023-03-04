@@ -8,7 +8,6 @@ export const Img = styled.img`
   cursor: pointer;
 `
 
-
 export const CardSliderContainer = styled.section`
   display: flex;
   padding-bottom: 12px;

@@ -25,8 +25,8 @@ const StandardCardSlider = ({ title, moviesToRender }) => {
           <Card key={m.id} data={m} />
         ))}
       </Grid>
-      {!moviesToRender.length && title.toLowerCase === 'favorites' &&
-        <Stack>
+      {!moviesToRender.length && title.toLowerCase() === 'favorites' &&
+        <Stack sx={{ width: '100%' }}>
           <Typography variant="h3" color="white">
             There is not movies added to favorites, add one!
           </Typography>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { AppBar, Box, Toolbar, TextField, Stack, Typography, useMediaQuery } from '@mui/material';
 import { UserContext } from '../context/UserContext';
 import { navroutes } from '../utils/navRoutes';
@@ -23,6 +23,8 @@ const Navbar = ({ children }) => {
   const handleToggleSearcher = () => setToggleSearcher(!toggleSearcher);
   const handleLogout = () => LOGOUT();
 
+  const search = useNavigate();
+
   return(
     <>
       <Box sx={{ flexGrow: 1 }}>
@@ -41,7 +43,7 @@ const Navbar = ({ children }) => {
               KajloMovies
             </Typography>
             <Stack direction="row" gap={isMiniMobile ? 1.5 : 3} alignItems="center">
-              {isNotMobile && <InputSearcher searchValue={searchValue} setSearchValue={setSearchValue} /> }
+              {isNotMobile && <InputSearcher searchValue={searchValue} setSearchValue={setSearchValue} navigate={search} /> }
               {navroutes.map(r => {
                 if(!actualUser && r.requireAccount) return null
                 if(!!actualUser && r.public) return null
@@ -82,7 +84,7 @@ const Navbar = ({ children }) => {
         </AppBar>
       </Box>
       {!!toggleSearcher &&
-        <InputSearcher searchValue={searchValue} setSearchValue={setSearchValue} />
+        <InputSearcher searchValue={searchValue} setSearchValue={setSearchValue} navigate={search} />
       }
       {children}
     </>

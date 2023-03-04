@@ -8,6 +8,8 @@ import Login from './routes/Login';
 import Register from './routes/Register';
 import Favorites from './routes/Favorites';
 import SearchByCategory from './routes/SearchByCategory';
+import SearchByQuery from './routes/SearchByQuery';
+import Details from './routes/Details';
 
 const App = () => {
 
@@ -23,6 +25,8 @@ const App = () => {
             <Route path="/signup" element={<Register />} />
             <Route path="/favorites" element={<Favorites />} />
             <Route path="/movie/category/:categoryName" element={<SearchByCategory />} />
+            <Route path="/movie/search/:id" element={<SearchByQuery />} />
+            <Route path="/movie/details/:id" element={<Details />} />
           </Routes>
         </Navbar>
       </UserContextProvider>

@@ -9,5 +9,5 @@ export const registerUser = async (data) => {
   const rta = await axios.post(`${LOCAL_DB}`, data);
   const response = rta.data;
 
-  return response
+  return response;
 }

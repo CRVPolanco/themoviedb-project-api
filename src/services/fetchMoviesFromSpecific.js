@@ -2,7 +2,7 @@ import axios from 'axios';
 import { API, API_KEY } from './api';
 
 export const getMoviesFromCategory = async (categoryName) =>
-  await axios.get(`${API}discover/movie?with_genres=${categoryName}&${API_KEY}`)
+  await axios.get(`${API}discover/movie?${API_KEY}&with_genres=${categoryName}`)
     .then(m => m)
     .catch(e => e);
 
