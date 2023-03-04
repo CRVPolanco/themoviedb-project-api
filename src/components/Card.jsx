@@ -15,8 +15,7 @@ const Card = ({ data }) => {
   const { actualUser, toggleFavorites } = React.useContext(UserContext);
 
   const isFavorite = () => {
-    if(!actualUser)
-      return false;
+    if(!actualUser) return false;
 
     const isFav = actualUser.movies_favorites.some(m => m.id === data.id);
     return isFav;

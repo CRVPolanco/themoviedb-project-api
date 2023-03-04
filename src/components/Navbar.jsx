@@ -39,7 +39,7 @@ const Navbar = ({ children }) => {
                 <MenuIcon />
               </IconButton>
             }
-            <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+            <Typography variant="h6" component="div" sx={{ flexGrow: 1 }} onClick={() => search('/')}>
               KajloMovies
             </Typography>
             <Stack direction="row" gap={isMiniMobile ? 1.5 : 3} alignItems="center">

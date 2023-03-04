@@ -1,7 +1,7 @@
 import { useState, createContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { addFavorites, removeFavorites } from '../services/addFavorites';
-import { fetchUser, registerUser } from '../services/fetchUser';
+import { fetchUser, fetchUserByEmail, registerUser } from '../services/fetchUser';
 
 const UserContext = createContext();
 
@@ -14,10 +14,10 @@ const UserContextProvider = ({ children }) => {
 
   const [actualUser, setActualUser] = useState(null);
 
-  const LOGIN = async (data) => {
+  const LOGIN = async (user) => {
 
     setLoading(true);
-    const getUser = await fetchUser(data.email);
+    const getUser = await fetchUser({ email: user.email, password: user.password });
 
     console.log();
 
@@ -27,7 +27,7 @@ const UserContextProvider = ({ children }) => {
       return;
     }
 
-    if(getUser && (getUser.data.password !== data.password)){
+    if(getUser.data === 'invalid password'){
       setLoading(false);
       setError('Incorrect password');
       return;
@@ -35,6 +35,7 @@ const UserContextProvider = ({ children }) => {
 
     setActualUser({ ...getUser.data });
     setLoading(false);
+    setError('');
     redirection('/');
   };
 
@@ -42,14 +43,17 @@ const UserContextProvider = ({ children }) => {
 
     setLoading(true);
 
-    const getUser = await fetchUser(data.email);
+    const getUser = await fetchUserByEmail(data.email);
 
-    if(getUser.data !== 'user does not exists'){
+    console.log(getUser);
+
+    if(!!getUser.data){
       setLoading(false);
       return setError("User already exists, create another");
     }
 
     const userData = await registerUser(data);
+    console.log(userData);
 
     if(userData.message === 'created successfully'){
       setLoading(false);
@@ -58,7 +62,7 @@ const UserContextProvider = ({ children }) => {
     }
 
     setLoading(false);
-    setActualUser({ ...getUser });
+    setActualUser({ ...userData.user });
     redirection('/');
     return;
 

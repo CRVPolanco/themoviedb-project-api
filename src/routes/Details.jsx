@@ -79,7 +79,7 @@ const Details = () => {
       <Stack>
         <Typography fontWeight="400">{movie.overview}</Typography>
         <Typography mt={2} fontWeight="bold">Genres</Typography>
-        <Stack direction="row" gap={1} mt={1}>
+        <Stack direction="row" gap={1} mt={1} sx={{ overflowX: 'scroll', overflowY: 'hidden', paddingBottom: '8px' }}>
           {!!movie.id && movie.genres.map(g => (
             <Typography key={g.id} sx={{ padding: '4px 16px', backgroundColor: '#1a1a1a', borderRadius: '6px' }}>{g.name}</Typography>
           ))}

@@ -19,7 +19,7 @@ const Login = () => {
   const [showPass, setShowPass] = React.useState(false);
 
   const toggleVisibility = () => setShowPass(!showPass);
-  const login = () => LOGIN({ email: userInfo.email, password: userInfo.password });
+  const login = () => LOGIN(userInfo);
 
   const handleEmail = (e) => setUserInfo({ ...userInfo, email: e.target.value });
   const handlePassword = (e) => setUserInfo({ ...userInfo, password: e.target.value });
